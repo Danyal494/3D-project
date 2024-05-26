@@ -2,7 +2,7 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { useState, useEffect } from "react";
 
-const ThreeCanv = ({ rotationY, rotationX }) => {
+const ThreeCanv = ({ rotationX, rotationY }) => {
   const { scene } = useGLTF("/planet/scene.gltf");
   return (
     <mesh
@@ -25,10 +25,10 @@ const ThreeCanv = ({ rotationY, rotationX }) => {
   );
 };
 
-const Plane = () => {
+const Plane = ({ rotationY, rotationX }) => {
   const { scene } = useGLTF("/plane1.glb");
   return (
-    <mesh>
+    <mesh rotation={[rotationX, rotationY, 0]}>
       <hemisphereLight intensity={3.15} groundColor="white" />
       <pointLight intensity={2} />
       <spotLight
@@ -44,7 +44,7 @@ const Plane = () => {
   );
 };
 
-const CompCanvas = () => {
+const CompCanvasS = () => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -75,10 +75,10 @@ const CompCanvas = () => {
       gl={{ preserveDrawingBuffer: true }}
     >
       <OrbitControls enableZoom={false} />
-      <Plane />
+      <Plane rotationY={rotationY} rotationX={rotationX} />
       <ThreeCanv rotationY={rotationY} rotationX={rotationX} />
     </Canvas>
   );
 };
 
-export default CompCanvas;
+export default CompCanvasS;
